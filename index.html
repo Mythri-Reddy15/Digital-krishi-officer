@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Krishi Officer - Team Invicta</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
+    header { background: #2e7d32; color: white; padding: 15px; text-align: center; }
+    nav { display: flex; justify-content: center; background: #388e3c; flex-wrap: wrap; }
+    nav a { color: white; text-decoration: none; padding: 14px 20px; display: block; }
+    nav a:hover { background: #1b5e20; }
+    section { padding: 30px; text-align: center; }
+    button { background: #4caf50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 10px; }
+    button:hover { background: #388e3c; }
+    input, textarea, select { padding: 8px; margin: 5px; width: 250px; }
+    table { margin: auto; border-collapse: collapse; width: 60%; }
+    table, th, td { border: 1px solid black; padding: 10px; }
+    .stars span { font-size: 25px; cursor: pointer; color: gray; }
+    .stars span.active { color: gold; }
+    footer { position: fixed; bottom: 10px; right: 10px; background: #2e7d32; color: white; padding: 5px 10px; border-radius: 5px; font-size: 14px; }
+  </style>
+  <script>
+    function showFeature(feature) {
+      let features = document.querySelectorAll("section");
+      features.forEach(sec => sec.style.display = "none");
+      document.getElementById(feature).style.display = "block";
+    }
+
+    function getFertilizerRecommendation() {
+      let crop = document.getElementById("crop").value;
+      let soil = document.getElementById("soil").value;
+      let output = "For crop: " + crop + " with soil condition: " + soil +
+                   " → Recommended fertilizer: Urea + DAP mix (balanced NPK).";
+      document.getElementById("fertResult").innerText = output;
+    }
+
+    function refreshWeather() {
+      const tips = [
+        "🌦 Rain expected tomorrow. Avoid irrigation today.",
+        "☀️ Sunny and dry, best time for harvesting.",
+        "🌩️ Thunderstorms ahead, protect your crops.",
+        "🌤️ Cloudy but no rain expected today."
+      ];
+      let tip = tips[Math.floor(Math.random() * tips.length)];
+      document.getElementById("weatherTip").innerText = tip;
+    }
+
+    function setRating(star) {
+      let stars = document.querySelectorAll(".stars span");
+      stars.forEach((s, i) => {
+        s.classList.toggle("active", i < star);
+      });
+      document.getElementById("ratingValue").value = star;
+    }
+
+    function startVoiceInput() {
+      alert("🎤 Voice input feature coming soon! (For demo, this is a placeholder)");
+    }
+  </script>
+</head>
+<body>
+
+  <header>
+    <h1>🌱 Digital Krishi Officer</h1>
+    <p>Your AI-powered farming companion</p>
+    <!-- Language Selector -->
+    <label for="lang">Choose Language:</label>
+    <select id="lang">
+      <option>English</option>
+      <option>తెలుగు (Telugu)</option>
+      <option>हिंदी (Hindi)</option>
+      <option>தமிழ் (Tamil)</option>
+    </select>
+  </header>
+
+  <nav>
+    <a href="#" onclick="showFeature('home')">Home</a>
+    <a href="#" onclick="showFeature('soil')">Soil & Fertilizer</a>
+    <a href="#" onclick="showFeature('pest')">Pest Detection</a>
+    <a href="#" onclick="showFeature('weather')">Weather Alerts</a>
+    <a href="#" onclick="showFeature('market')">Market Prices</a>
+    <a href="#" onclick="showFeature('schemes')">Govt Schemes</a>
+    <a href="#" onclick="showFeature('feedback')">Feedback</a>
+    <a href="#" onclick="showFeature('about')">About Us</a>
+  </nav>
+
+  <!-- Home -->
+  <section id="home">
+    <h2>Welcome Farmer 👩‍🌾👨‍🌾</h2>
+    <p>Ask queries in text, voice, or upload images for instant solutions.</p>
+    <button onclick="showFeature('soil')">Get Fertilizer Advice</button>
+    <button onclick="showFeature('pest')">Detect Pests/Diseases</button>
+    <button onclick="showFeature('weather')">Check Weather</button>
+    <br>
+    <button onclick="startVoiceInput()">🎤 Speak Your Query</button>
+  </section>
+
+  <!-- Soil -->
+  <section id="soil" style="display:none;">
+    <h2>Soil Health & Fertilizer Guidance</h2>
+    <input type="text" id="crop" placeholder="Crop Name"> <br>
+    <input type="text" id="soil" placeholder="Soil pH / NPK values"> <br>
+    <button onclick="getFertilizerRecommendation()">Get Recommendation</button>
+    <p id="fertResult" style="color:green; font-weight:bold;"></p>
+  </section>
+
+  <!-- Pest -->
+  <section id="pest" style="display:none;">
+    <h2>Pest & Disease Detection</h2>
+    <p>Upload an image of your crop:</p>
+    <input type="file"> <br><br>
+    <button>Analyze Image</button>
+  </section>
+
+  <!-- Weather -->
+  <section id="weather" style="display:none;">
+    <h2>Weather & Predictive Insights</h2>
+    <p id="weatherTip">Today's forecast: 🌦 Rain expected in 2 days. Avoid irrigation today.</p>
+    <button onclick="refreshWeather()">Refresh Weather</button>
+  </section>
+
+  <!-- Market -->
+  <section id="market" style="display:none;">
+    <h2>Market Price Tracking</h2>
+    <table>
+      <tr><th>Crop</th><th>Price (₹/Quintal)</th><th>Mandi</th></tr>
+      <tr><td>Wheat</td><td>2250</td><td>Hyderabad</td></tr>
+      <tr><td>Rice</td><td>3100</td><td>Guntur</td></tr>
+      <tr><td>Cotton</td><td>6500</td><td>Warangal</td></tr>
+    </table>
+  </section>
+
+  <!-- Schemes -->
+  <section id="schemes" style="display:none;">
+    <h2>Government Schemes & Subsidies</h2>
+    <ul>
+      <li><b>PM-Kisan:</b> ₹6000 annual support</li>
+      <li><b>Crop Insurance:</b> Coverage for weather losses</li>
+      <li><b>Fertilizer Subsidy:</b> Reduced rates on NPK</li>
+    </ul>
+    <button>Know More</button>
+  </section>
+
+  <!-- Feedback -->
+  <section id="feedback" style="display:none;">
+    <h2>Feedback</h2>
+    <p>Rate your experience:</p>
+    <div class="stars">
+      <span onclick="setRating(1)">★</span>
+      <span onclick="setRating(2)">★</span>
+      <span onclick="setRating(3)">★</span>
+      <span onclick="setRating(4)">★</span>
+      <span onclick="setRating(5)">★</span>
+    </div>
+    <input type="hidden" id="ratingValue" value="0"><br>
+    <textarea rows="4" cols="40" placeholder="Your suggestions..."></textarea><br>
+    <button>Submit Feedback</button>
+  </section>
+
+  <!-- About -->
+  <section id="about" style="display:none;">
+    <h2>About Us - Team Invicta</h2>
+    <p><b>Problem:</b> Farmers lack instant, reliable, multilingual advisory.</p>
+    <p><b>Solution:</b> A Digital Krishi Officer providing soil, pest, weather, subsidy & market guidance in one platform.</p>
+    <p><b>Team Members:</b> Akshaya, Laibha, Laxmiprasana, Lohitha, Mythri, Pranathi</p>
+    <p><b>Email:</b> teaminvicta@gmail.com</p>
+    <p><b>Contact:</b> +91 98765 43210</p>
+  </section>
+
+  <footer>
+    Team Invicta
+  </footer>
+
+</body>
+</html>
